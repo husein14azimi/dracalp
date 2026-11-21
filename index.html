@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Desk — Submit &amp; Review Messages</title>
+
+  <!-- Google Fonts & Material Symbols Rounded (Material 3) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ==========================================================================
+       Google Material 3 Design System Tokens (Light Default + Dark Theme)
+       ========================================================================== */
+    :root,
+    [data-theme="light"] {
+      --md-sys-color-primary: #0b57d0;
+      --md-sys-color-on-primary: #ffffff;
+      --md-sys-color-primary-container: #d3e3fd;
+      --md-sys-color-on-primary-container: #041e49;
+
+      --md-sys-color-secondary: #00639b;
+      --md-sys-color-secondary-container: #c2e7ff;
+      --md-sys-color-on-secondary-container: #001d35;
+
+      --md-sys-color-tertiary-container: #c4eed0;
+      --md-sys-color-on-tertiary-container: #072711;
+
+      --md-sys-color-surface: #f8fafd;
+      --md-sys-color-surface-container-lowest: #ffffff;
+      --md-sys-color-surface-container-low: #f3f6fc;
+      --md-sys-color-surface-container: #edf2fa;
+      --md-sys-color-surface-container-high: #e4eaf4;
+      --md-sys-color-surface-container-highest: #dce3ef;
+
+      --md-sys-color-on-surface: #1f1f1f;
+      --md-sys-color-on-surface-variant: #444746;
+      --md-sys-color-outline: #747775;
+      --md-sys-color-outline-variant: #c4c7c5;
+
+      --md-sys-color-error: #b3261e;
+      --md-sys-color-error-container: #f9dedc;
+      --md-sys-color-on-error-container: #410e0b;
+
+      --md-sys-color-inverse-surface: #303030;
+      --md-sys-color-inverse-on-surface: #f2f2f2;
+
+      --md-sys-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.08), 0 1px 3px 1px rgba(0, 0, 0, 0.04);
+      --md-sys-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.08);
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --md-sys-color-primary: #a8c7fa;
+      --md-sys-color-on-primary: #062e6f;
+      --md-sys-color-primary-container: #0842a0;
+      --md-sys-color-on-primary-container: #d3e3fd;
+
+      --md-sys-color-secondary: #7fcfff;
+      --md-sys-color-secondary-container: #004a77;
+      --md-sys-color-on-secondary-container: #c2e7ff;
+
+      --md-sys-color-tertiary-container: #0f5223;
+      --md-sys-color-on-tertiary-container: #c4eed0;
+
+      --md-sys-color-surface: #111318;
+      --md-sys-color-surface-container-lowest: #0c0e13;
+      --md-sys-color-surface-container-low: #191b20;
+      --md-sys-color-surface-container: #1e2026;
+      --md-sys-color-surface-container-high: #282a31;
+      --md-sys-color-surface-container-highest: #33353d;
+
+      --md-sys-color-on-surface: #e3e3e3;
+      --md-sys-color-on-surface-variant: #c4c7c5;
+      --md-sys-color-outline: #8e918f;
+      --md-sys-color-outline-variant: #444746;
+
+      --md-sys-color-error: #f2b8b5;
+      --md-sys-color-error-container: #8c1d18;
+      --md-sys-color-on-error-container: #f9dedc;
+
+      --md-sys-color-inverse-surface: #e3e3e3;
+      --md-sys-color-inverse-on-surface: #1f1f1f;
+
+      --md-sys-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --md-sys-elevation-2: 0 4px 10px rgba(0, 0, 0, 0.45);
+      color-scheme: dark;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, -apple-system, sans-serif;
+      background-color: var(--md-sys-color-surface);
+      color: var(--md-sys-color-on-surface);
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .material-symbols-rounded {
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      vertical-align: middle;
+      user-select: none;
+    }
+
+    /* Top App Bar */
+    .m3-top-app-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background-color: var(--md-sys-color-surface-container-low);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+      backdrop-filter: blur(8px);
+    }
+
+    .top-bar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+      display: grid;
+      place-items: center;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      margin: 0;
+      font-size: 0.78rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .top-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      background-color: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .m3-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      background-color: var(--md-sys-color-surface-container-lowest);
+      color: var(--md-sys-color-on-surface);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .m3-icon-btn:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    /* Main Layout */
+    .app-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 20px 64px;
+    }
+
+    .m3-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      border-radius: 16px;
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+      font-size: 0.875rem;
+    }
+
+    .m3-banner.error {
+      background-color: var(--md-sys-color-error-container);
+      color: var(--md-sys-color-on-error-container);
+    }
+
+    .m3-banner code {
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.82em;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+
+    /* Auth Card */
+    .auth-shell {
+      max-width: 460px;
+      margin: 28px auto 0;
+    }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      margin-bottom: 20px;
+    }
+
+    .auth-tab-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: transparent;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+    }
+
+    .auth-tab-btn.active {
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    /* Segmented View Switcher */
+    .view-switcher-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .m3-segmented-group {
+      display: inline-flex;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .m3-segmented-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      background: transparent;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .m3-segmented-btn.active {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .m3-badge {
+      min-width: 22px;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+
+    /* Cards */
+    .m3-card {
+      background-color: var(--md-sys-color-surface-container-lowest);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--md-sys-elevation-1);
+    }
+
+    .m3-tonal-card {
+      background-color: var(--md-sys-color-surface-container);
+      border-radius: 20px;
+      padding: 18px 20px;
+    }
+
+    .headline-small {
+      margin: 0 0 4px;
+      font-size: 1.375rem;
+      font-weight: 500;
+    }
+
+    .body-medium {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .muted {
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    /* Form Fields */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }
+
+    .m3-field {
+      margin-bottom: 18px;
+    }
+
+    .m3-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .required-star {
+      color: var(--md-sys-color-error);
+    }
+
+    .m3-input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--md-sys-color-outline);
+      background-color: var(--md-sys-color-surface-container-lowest);
+      color: var(--md-sys-color-on-surface);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .m3-input:focus {
+      outline: none;
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+    }
+
+    /* Chips */
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .m3-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+      background-color: var(--md-sys-color-surface-container-lowest);
+      color: var(--md-sys-color-on-surface-variant);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .m3-chip:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    .m3-chip .chip-check {
+      display: none;
+      font-size: 18px;
+    }
+
+    .m3-chip.selected {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+      border-color: transparent;
+    }
+
+    .m3-chip.selected .chip-check {
+      display: inline-block;
+    }
+
+    /* Visual Markdown Editor */
+    .editor-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .editor-mode-toggle {
+      display: inline-flex;
+      background-color: var(--md-sys-color-surface-container);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .mode-pill {
+      border: none;
+      background: transparent;
+      color: var(--md-sys-color-on-surface-variant);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .mode-pill.active {
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .md-editor-shell {
+      border: 1px solid var(--md-sys-color-outline);
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: var(--md-sys-color-surface-container-lowest);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .md-editor-shell:focus-within {
+      border-color: var(--md-sys-color-primary);
+      box-shadow: 0 0 0 2px var(--md-sys-color-primary-container);
+    }
+
+    .md-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 10px;
+      background-color: var(--md-sys-color-surface-container-low);
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 34px;
+      padding: 0 8px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--md-sys-color-on-surface);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .tool-btn:hover {
+      background-color: var(--md-sys-color-surface-container-highest);
+    }
+
+    .tool-btn .material-symbols-rounded {
+      font-size: 20px;
+    }
+
+    .tool-divider {
+      width: 1px;
+      height: 20px;
+      background-color: var(--md-sys-color-outline-variant);
+      margin: 0 4px;
+    }
+
+    .md-textarea {
+      width: 100%;
+      min-height: 210px;
+      padding: 16px;
+      border: none;
+      resize: vertical;
+      background: transparent;
+      color: var(--md-sys-color-on-surface);
+      font-family: "Roboto", system-ui, sans-serif;
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .md-textarea:focus {
+      outline: none;
+    }
+
+    .md-preview {
+      min-height: 210px;
+      padding: 16px 20px;
+      background-color: var(--md-sys-color-surface-container-lowest);
+    }
+
+    .helper-text {
+      margin: 8px 0 0;
+      font-size: 0.8rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    /* M3 Buttons */
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .m3-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      height: 42px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: filter 0.15s ease, background-color 0.15s ease;
+    }
+
+    .m3-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .m3-btn-full {
+      width: 100%;
+    }
+
+    .m3-btn-filled {
+      background-color: var(--md-sys-color-primary);
+      color: var(--md-sys-color-on-primary);
+    }
+    .m3-btn-filled:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
+
+    .m3-btn-tonal {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+    .m3-btn-tonal:hover:not(:disabled) {
+      filter: brightness(0.96);
+    }
+
+    .m3-btn-outlined {
+      background: transparent;
+      border: 1px solid var(--md-sys-color-outline);
+      color: var(--md-sys-color-on-surface);
+      height: 38px;
+      padding: 0 14px;
+      font-size: 0.84rem;
+    }
+    .m3-btn-outlined:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    .m3-btn-text {
+      background: transparent;
+      color: var(--md-sys-color-primary);
+    }
+    .m3-btn-text:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+
+    /* Dashboard */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .stat-value-sm {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .filter-card {
+      padding: 18px 20px;
+      margin-bottom: 18px;
+    }
+
+    .ownership-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .scope-segmented {
+      display: inline-flex;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .scope-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: transparent;
+      color: var(--md-sys-color-on-surface-variant);
+      cursor: pointer;
+    }
+
+    .scope-btn.active {
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .filter-top-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .search-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background-color: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .search-box input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      color: var(--md-sys-color-on-surface);
+      font-family: inherit;
+      font-size: 0.92rem;
+      padding: 10px 0;
+    }
+
+    .search-box input:focus {
+      outline: none;
+    }
+
+    /* Message Cards */
+    .messages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ticket-card {
+      background-color: var(--md-sys-color-surface-container-lowest);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      border-radius: 20px;
+      padding: 20px 22px;
+      box-shadow: var(--md-sys-elevation-1);
+    }
+
+    .ticket-meta-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .ticket-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .pill-id {
+      font-family: "Roboto Mono", monospace;
+      background-color: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .pill-cat {
+      background-color: var(--md-sys-color-secondary-container);
+      color: var(--md-sys-color-on-secondary-container);
+    }
+
+    .pill-readonly {
+      background-color: var(--md-sys-color-tertiary-container);
+      color: var(--md-sys-color-on-tertiary-container);
+    }
+
+    .pill-mine {
+      background-color: var(--md-sys-color-primary-container);
+      color: var(--md-sys-color-on-primary-container);
+    }
+
+    .ticket-time {
+      font-size: 0.8rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .ticket-subject {
+      margin: 0 0 4px;
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
+    .ticket-author {
+      margin: 0 0 14px;
+      font-size: 0.82rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .ticket-body {
+      padding-top: 12px;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .raw-md-details {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .raw-md-details summary {
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+    }
+
+    .raw-md-details pre {
+      margin: 8px 0 0;
+      padding: 12px;
+      border-radius: 12px;
+      background-color: var(--md-sys-color-surface-container);
+      font-family: "Roboto Mono", monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Rendered Markdown Typography */
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3 {
+      margin: 0.9em 0 0.4em;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .markdown-body > *:first-child { margin-top: 0; }
+    .markdown-body > *:last-child { margin-bottom: 0; }
+    .markdown-body p { margin: 0.6em 0; }
+    .markdown-body ul,
+    .markdown-body ol {
+      margin: 0.6em 0;
+      padding-left: 1.4em;
+    }
+    .markdown-body blockquote {
+      margin: 0.8em 0;
+      padding: 8px 14px;
+      border-left: 4px solid var(--md-sys-color-primary);
+      background-color: var(--md-sys-color-surface-container-low);
+      border-radius: 0 10px 10px 0;
+    }
+    .markdown-body code {
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.86em;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background-color: var(--md-sys-color-surface-container);
+    }
+    .markdown-body pre {
+      margin: 0.8em 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      overflow-x: auto;
+      background-color: var(--md-sys-color-surface-container);
+    }
+    .markdown-body pre code {
+      padding: 0;
+      background: transparent;
+    }
+    .markdown-body a {
+      color: var(--md-sys-color-primary);
+      text-decoration: underline;
+    }
+    .markdown-body hr {
+      border: none;
+      border-top: 1px solid var(--md-sys-color-outline-variant);
+      margin: 1em 0;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      border-radius: 24px;
+      background-color: var(--md-sys-color-surface-container-low);
+      border: 1px dashed var(--md-sys-color-outline-variant);
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .empty-state .material-symbols-rounded {
+      font-size: 48px;
+      margin-bottom: 8px;
+      color: var(--md-sys-color-primary);
+    }
+
+    /* M3 Dialog */
+    .m3-dialog {
+      border: none;
+      border-radius: 28px;
+      padding: 0;
+      width: min(440px, 92vw);
+      background-color: var(--md-sys-color-surface-container-high);
+      color: var(--md-sys-color-on-surface);
+      box-shadow: var(--md-sys-elevation-2);
+    }
+
+    .m3-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .dialog-content { padding: 24px; }
+    .dialog-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .dialog-icon { color: var(--md-sys-color-primary); }
+    .title-large {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* M3 Snackbar */
+    .m3-snackbar {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      background-color: var(--md-sys-color-inverse-surface);
+      color: var(--md-sys-color-inverse-on-surface);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      box-shadow: var(--md-sys-elevation-2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 50;
+    }
+    .m3-snackbar.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      .form-grid,
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .tool-text,
+      .brand-subtitle,
+      .user-chip-text {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Material 3 Top App Bar -->
+  <header class="m3-top-app-bar">
+    <div class="top-bar-inner">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <span class="material-symbols-rounded">inbox_text</span>
+        </div>
+        <div>
+          <h1 class="brand-title">Message Desk</h1>
+          <p class="brand-subtitle">Submit tickets &amp; review messages</p>
+        </div>
+      </div>
+
+      <div class="top-bar-actions">
+        <div id="userChip" class="user-chip hidden" title="Signed-in account">
+          <span class="material-symbols-rounded" style="font-size:18px;">account_circle</span>
+          <span id="userChipLabel" class="user-chip-text"></span>
+        </div>
+
+        <button id="signOutBtn" class="m3-btn m3-btn-outlined hidden" type="button">
+          <span class="material-symbols-rounded" style="font-size:18px;">logout</span>
+          <span>Sign out</span>
+        </button>
+
+        <button
+          id="themeToggleBtn"
+          class="m3-icon-btn"
+          type="button"
+          aria-label="Toggle dark mode"
+          title="Switch light/dark theme"
+        >
+          <span class="material-symbols-rounded" id="themeIcon">dark_mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-container">
+    <!-- Shown only while NEON_CONFIG URLs are empty -->
+    <div id="demoBanner" class="m3-banner hidden" role="status">
+      <span class="material-symbols-rounded">info</span>
+      <div>
+        <strong>Local Demo Mode:</strong> Paste your <code>DATA_API_URL</code> and
+        <code>AUTH_URL</code> into <code>NEON_CONFIG</code> inside this HTML file to connect to Neon.
+      </div>
+    </div>
+
+    <!-- AUTH SCREEN (Shown when signed out) -->
+    <section id="authSection" class="auth-shell hidden">
+      <div class="m3-card">
+        <div class="card-header">
+          <h2 class="headline-small">Welcome to Message Desk</h2>
+          <p class="body-medium muted">
+            Sign in or create an account to submit messages and review your submissions.
+          </p>
+        </div>
+
+        <div class="auth-tabs" role="tablist">
+          <button type="button" id="authTabSignIn" class="auth-tab-btn active" role="tab" aria-selected="true">
+            Sign In
+          </button>
+          <button type="button" id="authTabSignUp" class="auth-tab-btn" role="tab" aria-selected="false">
+            Create Account
+          </button>
+        </div>
+
+        <div id="authErrorBanner" class="m3-banner error hidden" role="alert">
+          <span class="material-symbols-rounded">error</span>
+          <div id="authErrorText"></div>
+        </div>
+
+        <form id="authForm" novalidate>
+          <div id="authNameField" class="m3-field hidden">
+            <label for="authNameInput" class="m3-label">
+              Your Name <span class="required-star">*</span>
+            </label>
+            <input
+              id="authNameInput"
+              type="text"
+              class="m3-input"
+              placeholder="e.g., Alex Morgan"
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="m3-field">
+            <label for="authEmailInput" class="m3-label">
+              Email Address <span class="required-star">*</span>
+            </label>
+            <input
+              id="authEmailInput"
+              type="email"
+              class="m3-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="m3-field">
+            <label for="authPasswordInput" class="m3-label">
+              Password <span class="required-star">*</span>
+            </label>
+            <input
+              id="authPasswordInput"
+              type="password"
+              class="m3-input"
+              placeholder="Minimum 8 characters"
+              autocomplete="current-password"
+              minlength="8"
+              required
+            />
+          </div>
+
+          <button type="submit" id="authSubmitBtn" class="m3-btn m3-btn-filled m3-btn-full">
+            <span class="material-symbols-rounded">login</span>
+            <span id="authSubmitLabel">Sign In</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- APP WORKSPACE (Shown when signed in) -->
+    <div id="appWorkspace" class="hidden">
+      <nav class="view-switcher-wrap" aria-label="Primary views">
+        <div class="m3-segmented-group" role="tablist">
+          <button
+            id="tabSubmit"
+            class="m3-segmented-btn active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panelSubmit"
+            type="button"
+          >
+            <span class="material-symbols-rounded">edit_square</span>
+            <span>New Message</span>
+          </button>
+          <button
+            id="tabDashboard"
+            class="m3-segmented-btn"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panelDashboard"
+            type="button"
+          >
+            <span class="material-symbols-rounded">dashboard</span>
+            <span>Dashboard</span>
+            <span id="messageCountBadge" class="m3-badge">0</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- VIEW 1: SUBMIT MESSAGE -->
+      <section id="panelSubmit" class="m3-card" role="tabpanel" aria-labelledby="tabSubmit">
+        <div class="card-header">
+          <h2 class="headline-small">Submit a Message</h2>
+          <p class="body-medium muted">
+            Submitted messages are saved permanently as Markdown and cannot be edited afterward.
+          </p>
+        </div>
+
+        <form id="messageForm" novalidate>
+          <div class="form-grid">
+            <div class="m3-field">
+              <label for="subjectInput" class="m3-label">
+                Subject <span class="required-star">*</span>
+              </label>
+              <input
+                id="subjectInput"
+                type="text"
+                class="m3-input"
+                placeholder="e.g., Request access to shared folder"
+                maxlength="140"
+                required
+              />
+            </div>
+
+            <div class="m3-field">
+              <label for="senderInput" class="m3-label">Display Name</label>
+              <input
+                id="senderInput"
+                type="text"
+                class="m3-input"
+                placeholder="e.g., Alex Morgan"
+                maxlength="80"
+              />
+            </div>
+          </div>
+
+          <div class="m3-field">
+            <span class="m3-label">Category</span>
+            <div class="chip-row" id="categoryChips" role="radiogroup" aria-label="Message category">
+              <button type="button" class="m3-chip selected" data-category="General" aria-checked="true">
+                <span class="material-symbols-rounded chip-check">check</span>General
+              </button>
+              <button type="button" class="m3-chip" data-category="Support" aria-checked="false">
+                <span class="material-symbols-rounded chip-check">check</span>Support
+              </button>
+              <button type="button" class="m3-chip" data-category="Feedback" aria-checked="false">
+                <span class="material-symbols-rounded chip-check">check</span>Feedback
+              </button>
+              <button type="button" class="m3-chip" data-category="Bug Report" aria-checked="false">
+                <span class="material-symbols-rounded chip-check">check</span>Bug Report
+              </button>
+              <button type="button" class="m3-chip" data-category="Idea" aria-checked="false">
+                <span class="material-symbols-rounded chip-check">check</span>Idea
+              </button>
+            </div>
+          </div>
+
+          <!-- Visual Markdown Editor -->
+          <div class="m3-field">
+            <div class="editor-label-row">
+              <label for="markdownInput" class="m3-label">
+                Message <span class="required-star">*</span>
+              </label>
+              <div class="editor-mode-toggle" role="group" aria-label="Editor mode">
+                <button type="button" id="modeWriteBtn" class="mode-pill active">Write</button>
+                <button type="button" id="modePreviewBtn" class="mode-pill">Preview</button>
+              </div>
+            </div>
+
+            <div class="md-editor-shell">
+              <div class="md-toolbar" id="mdToolbar" role="toolbar" aria-label="Formatting options">
+                <button type="button" class="tool-btn" data-action="heading" title="Heading">
+                  <span class="material-symbols-rounded">title</span>
+                  <span class="tool-text">Heading</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="bold" title="Bold (Ctrl+B)">
+                  <span class="material-symbols-rounded">format_bold</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="italic" title="Italic (Ctrl+I)">
+                  <span class="material-symbols-rounded">format_italic</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="strike" title="Strikethrough">
+                  <span class="material-symbols-rounded">strikethrough_s</span>
+                </button>
+
+                <span class="tool-divider" aria-hidden="true"></span>
+
+                <button type="button" class="tool-btn" data-action="ul" title="Bulleted list">
+                  <span class="material-symbols-rounded">format_list_bulleted</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="ol" title="Numbered list">
+                  <span class="material-symbols-rounded">format_list_numbered</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="task" title="Checklist">
+                  <span class="material-symbols-rounded">checklist</span>
+                </button>
+
+                <span class="tool-divider" aria-hidden="true"></span>
+
+                <button type="button" class="tool-btn" data-action="quote" title="Quote">
+                  <span class="material-symbols-rounded">format_quote</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="code" title="Inline code">
+                  <span class="material-symbols-rounded">code</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="codeblock" title="Code block">
+                  <span class="material-symbols-rounded">data_object</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="link" title="Insert link">
+                  <span class="material-symbols-rounded">link</span>
+                  <span class="tool-text">Link</span>
+                </button>
+                <button type="button" class="tool-btn" data-action="hr" title="Divider line">
+                  <span class="material-symbols-rounded">horizontal_rule</span>
+                </button>
+              </div>
+
+              <textarea
+                id="markdownInput"
+                class="md-textarea"
+                rows="9"
+                placeholder="Write your message here... Use the buttons above to add headings, bold text, lists, checklists, or links."
+                required
+              ></textarea>
+
+              <div id="markdownPreview" class="md-preview markdown-body hidden"></div>
+            </div>
+
+            <p class="helper-text">
+              Tip: Select any text and click a formatting button, or click <strong>Preview</strong> to check formatting before sending.
+            </p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="clearFormBtn" class="m3-btn m3-btn-text">Clear</button>
+            <button type="submit" id="submitBtn" class="m3-btn m3-btn-filled">
+              <span class="material-symbols-rounded">send</span>
+              <span>Submit Message</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- VIEW 2: READ-ONLY DASHBOARD -->
+      <section id="panelDashboard" class="hidden" role="tabpanel" aria-labelledby="tabDashboard">
+        <div class="stats-grid">
+          <div class="m3-tonal-card stat-card">
+            <span class="material-symbols-rounded stat-icon">forum</span>
+            <div>
+              <div id="statTotal" class="stat-value">0</div>
+              <div class="stat-label">All Messages</div>
+            </div>
+          </div>
+          <div class="m3-tonal-card stat-card">
+            <span class="material-symbols-rounded stat-icon">person_check</span>
+            <div>
+              <div id="statMine" class="stat-value">0</div>
+              <div class="stat-label">My Messages</div>
+            </div>
+          </div>
+          <div class="m3-tonal-card stat-card">
+            <span class="material-symbols-rounded stat-icon">schedule</span>
+            <div>
+              <div id="statLatest" class="stat-value stat-value-sm">—</div>
+              <div class="stat-label">Latest Submission</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m3-card filter-card">
+          <!-- Scope Filter: All Messages vs My Messages -->
+          <div class="ownership-bar">
+            <div class="scope-segmented" role="group" aria-label="Filter messages by owner">
+              <button type="button" id="scopeAllBtn" class="scope-btn active">
+                <span class="material-symbols-rounded" style="font-size:18px;">public</span>
+                <span>All Messages (<span id="scopeAllCount">0</span>)</span>
+              </button>
+              <button type="button" id="scopeMineBtn" class="scope-btn">
+                <span class="material-symbols-rounded" style="font-size:18px;">person</span>
+                <span>My Messages (<span id="scopeMineCount">0</span>)</span>
+              </button>
+            </div>
+
+            <button id="refreshBtn" class="m3-btn m3-btn-tonal" type="button">
+              <span class="material-symbols-rounded">refresh</span>
+              <span>Refresh</span>
+            </button>
+          </div>
+
+          <div class="filter-top-row">
+            <div class="search-box">
+              <span class="material-symbols-rounded">search</span>
+              <input
+                id="searchInput"
+                type="search"
+                placeholder="Search by subject, content, sender, or #ticket..."
+                aria-label="Search messages"
+              />
+            </div>
+          </div>
+
+          <div id="filterCategoryChips" class="chip-row">
+            <button type="button" class="m3-chip selected" data-filter-cat="All">
+              <span class="material-symbols-rounded chip-check">check</span>All Categories
+            </button>
+            <button type="button" class="m3-chip" data-filter-cat="General">
+              <span class="material-symbols-rounded chip-check">check</span>General
+            </button>
+            <button type="button" class="m3-chip" data-filter-cat="Support">
+              <span class="material-symbols-rounded chip-check">check</span>Support
+            </button>
+            <button type="button" class="m3-chip" data-filter-cat="Feedback">
+              <span class="material-symbols-rounded chip-check">check</span>Feedback
+            </button>
+            <button type="button" class="m3-chip" data-filter-cat="Bug Report">
+              <span class="material-symbols-rounded chip-check">check</span>Bug Report
+            </button>
+            <button type="button" class="m3-chip" data-filter-cat="Idea">
+              <span class="material-symbols-rounded chip-check">check</span>Idea
+            </button>
+          </div>
+        </div>
+
+        <div id="messagesList" class="messages-list" aria-live="polite"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- M3 Link Insertion Dialog -->
+  <dialog id="linkDialog" class="m3-dialog" aria-labelledby="linkDialogTitle">
+    <form id="linkForm" method="dialog" class="dialog-content">
+      <div class="dialog-header">
+        <span class="material-symbols-rounded dialog-icon">add_link</span>
+        <h3 id="linkDialogTitle" class="title-large">Insert Web Link</h3>
+      </div>
+
+      <div class="m3-field">
+        <label for="linkTextInput" class="m3-label">Display Text</label>
+        <input id="linkTextInput" type="text" class="m3-input" placeholder="e.g., Guidelines" required />
+      </div>
+
+      <div class="m3-field">
+        <label for="linkUrlInput" class="m3-label">Web Address (URL)</label>
+        <input id="linkUrlInput" type="url" class="m3-input" placeholder="https://example.com" required />
+      </div>
+
+      <div class="dialog-actions">
+        <button type="button" id="cancelLinkBtn" class="m3-btn m3-btn-text">Cancel</button>
+        <button type="submit" class="m3-btn m3-btn-filled">Insert Link</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- M3 Snackbar -->
+  <div id="snackbar" class="m3-snackbar" role="status" aria-live="polite"></div>
+
+  <!-- Markdown & Sanitizer CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+  <!-- App Logic + Neon SDK from CDN -->
+  <script type="module">
+    // =========================================================================
+    // 1. PASTE YOUR NEON URLs HERE (from Neon Console -> Data API & Auth)
+    // =========================================================================
+    const NEON_CONFIG = {
+      // From Neon Console -> Data API (e.g. "https://ep-xxxx.apirest.c-2.us-east-2.aws.neon.tech/neondb/rest/v1")
+      DATA_API_URL: "",
+      // From Neon Console -> Auth (e.g. "https://ep-xxxx.neonauth.c-2.us-east-2.aws.neon.build/neondb/auth")
+      AUTH_URL: ""
+    };
+
+    const STORAGE_KEYS = {
+      theme: "msgdesk_theme",
+      demoUser: "msgdesk_demo_user",
+      demoMessages: "msgdesk_demo_messages"
+    };
+
+    async function loadNeonSdk() {
+      try {
+        return await import("https://esm.sh/@neon/neon-js?bundle");
+      } catch {
+        return await import("https://cdn.jsdelivr.net/npm/@neondatabase/neon-js/+esm");
+      }
+    }
+
+    const isNeonConfigured = Boolean(NEON_CONFIG.DATA_API_URL.trim() && NEON_CONFIG.AUTH_URL.trim());
+    let neonClient = null;
+
+    async function getNeonClient() {
+      if (!isNeonConfigured) return null;
+      if (neonClient) return neonClient;
+
+      const { createClient } = await loadNeonSdk();
+      neonClient = createClient({
+        auth: { url: NEON_CONFIG.AUTH_URL.trim().replace(/\/+$/, "") },
+        dataApi: { url: NEON_CONFIG.DATA_API_URL.trim().replace(/\/+$/, "") }
+      });
+      return neonClient;
+    }
+
+    const state = {
+      authMode: "signin", // "signin" | "signup"
+      currentUser: null,
+      messages: [],
+      selectedCategory: "General",
+      scopeFilter: "all", // "all" | "mine"
+      filterCategory: "All",
+      searchQuery: "",
+      editorMode: "write"
+    };
+
+    const el = {
+      html: document.documentElement,
+      themeToggleBtn: document.getElementById("themeToggleBtn"),
+      themeIcon: document.getElementById("themeIcon"),
+      userChip: document.getElementById("userChip"),
+      userChipLabel: document.getElementById("userChipLabel"),
+      signOutBtn: document.getElementById("signOutBtn"),
+      demoBanner: document.getElementById("demoBanner"),
+
+      authSection: document.getElementById("authSection"),
+      authTabSignIn: document.getElementById("authTabSignIn"),
+      authTabSignUp: document.getElementById("authTabSignUp"),
+      authErrorBanner: document.getElementById("authErrorBanner"),
+      authErrorText: document.getElementById("authErrorText"),
+      authForm: document.getElementById("authForm"),
+      authNameField: document.getElementById("authNameField"),
+      authNameInput: document.getElementById("authNameInput"),
+      authEmailInput: document.getElementById("authEmailInput"),
+      authPasswordInput: document.getElementById("authPasswordInput"),
+      authSubmitBtn: document.getElementById("authSubmitBtn"),
+      authSubmitLabel: document.getElementById("authSubmitLabel"),
+
+      appWorkspace: document.getElementById("appWorkspace"),
+      tabSubmit: document.getElementById("tabSubmit"),
+      tabDashboard: document.getElementById("tabDashboard"),
+      panelSubmit: document.getElementById("panelSubmit"),
+      panelDashboard: document.getElementById("panelDashboard"),
+      messageCountBadge: document.getElementById("messageCountBadge"),
+
+      form: document.getElementById("messageForm"),
+      subjectInput: document.getElementById("subjectInput"),
+      senderInput: document.getElementById("senderInput"),
+      categoryChips: document.getElementById("categoryChips"),
+      markdownInput: document.getElementById("markdownInput"),
+      markdownPreview: document.getElementById("markdownPreview"),
+      mdToolbar: document.getElementById("mdToolbar"),
+      modeWriteBtn: document.getElementById("modeWriteBtn"),
+      modePreviewBtn: document.getElementById("modePreviewBtn"),
+      clearFormBtn: document.getElementById("clearFormBtn"),
+      submitBtn: document.getElementById("submitBtn"),
+
+      statTotal: document.getElementById("statTotal"),
+      statMine: document.getElementById("statMine"),
+      statLatest: document.getElementById("statLatest"),
+      scopeAllBtn: document.getElementById("scopeAllBtn"),
+      scopeMineBtn: document.getElementById("scopeMineBtn"),
+      scopeAllCount: document.getElementById("scopeAllCount"),
+      scopeMineCount: document.getElementById("scopeMineCount"),
+      searchInput: document.getElementById("searchInput"),
+      refreshBtn: document.getElementById("refreshBtn"),
+      filterCategoryChips: document.getElementById("filterCategoryChips"),
+      messagesList: document.getElementById("messagesList"),
+
+      linkDialog: document.getElementById("linkDialog"),
+      linkForm: document.getElementById("linkForm"),
+      linkTextInput: document.getElementById("linkTextInput"),
+      linkUrlInput: document.getElementById("linkUrlInput"),
+      cancelLinkBtn: document.getElementById("cancelLinkBtn"),
+      snackbar: document.getElementById("snackbar")
+    };
+
+    /* -------------------- Theme (Light Default) -------------------- */
+    function applyTheme(theme) {
+      const normalized = theme === "dark" ? "dark" : "light";
+      el.html.setAttribute("data-theme", normalized);
+      el.themeIcon.textContent = normalized === "dark" ? "light_mode" : "dark_mode";
+      localStorage.setItem(STORAGE_KEYS.theme, normalized);
+    }
+
+    applyTheme(localStorage.getItem(STORAGE_KEYS.theme) || "light");
+    el.themeToggleBtn.addEventListener("click", () => {
+      applyTheme(el.html.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    });
+
+    /* -------------------- Snackbar -------------------- */
+    let snackbarTimer = null;
+    function showSnackbar(message) {
+      el.snackbar.textContent = message;
+      el.snackbar.classList.add("show");
+      clearTimeout(snackbarTimer);
+      snackbarTimer = setTimeout(() => el.snackbar.classList.remove("show"), 3600);
+    }
+
+    /* -------------------- Safe Markdown Rendering -------------------- */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderMarkdownSafe(mdText) {
+      const source = (mdText || "").trim();
+      if (!source) return '<p class="muted"><em>Nothing to preview yet.</em></p>';
+
+      if (window.marked && window.DOMPurify) {
+        window.marked.setOptions({ breaks: true, gfm: true });
+        const cleanHtml = window.DOMPurify.sanitize(window.marked.parse(source), {
+          USE_PROFILES: { html: true }
+        });
+        const temp = document.createElement("div");
+        temp.innerHTML = cleanHtml;
+        temp.querySelectorAll("a").forEach((a) => {
+          a.setAttribute("target", "_blank");
+          a.setAttribute("rel", "noopener noreferrer");
+        });
+        temp.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+          cb.disabled = true;
+        });
+        return temp.innerHTML;
+      }
+      return `<p>${escapeHtml(source).replace(/\n/g, "<br>")}</p>`;
+    }
+
+    /* -------------------- Auth UI & Session -------------------- */
+    function setAuthMode(mode) {
+      state.authMode = mode;
+      const isSignUp = mode === "signup";
+      el.authTabSignIn.classList.toggle("active", !isSignUp);
+      el.authTabSignIn.setAttribute("aria-selected", String(!isSignUp));
+      el.authTabSignUp.classList.toggle("active", isSignUp);
+      el.authTabSignUp.setAttribute("aria-selected", String(isSignUp));
+
+      el.authNameField.classList.toggle("hidden", !isSignUp);
+      el.authNameInput.required = isSignUp;
+      el.authPasswordInput.setAttribute("autocomplete", isSignUp ? "new-password" : "current-password");
+      el.authSubmitLabel.textContent = isSignUp ? "Create Account" : "Sign In";
+      hideAuthError();
+    }
+
+    function showAuthError(msg) {
+      el.authErrorText.textContent = msg;
+      el.authErrorBanner.classList.remove("hidden");
+    }
+
+    function hideAuthError() {
+      el.authErrorBanner.classList.add("hidden");
+    }
+
+    el.authTabSignIn.addEventListener("click", () => setAuthMode("signin"));
+    el.authTabSignUp.addEventListener("click", () => setAuthMode("signup"));
+
+    function setAuthenticatedUser(user) {
+      state.currentUser = user;
+      const isSignedIn = Boolean(user);
+
+      el.authSection.classList.toggle("hidden", isSignedIn);
+      el.appWorkspace.classList.toggle("hidden", !isSignedIn);
+      el.userChip.classList.toggle("hidden", !isSignedIn);
+      el.signOutBtn.classList.toggle("hidden", !isSignedIn);
+
+      if (isSignedIn) {
+        const displayName = user.name || user.email || "User";
+        el.userChipLabel.textContent = displayName;
+        if (!el.senderInput.value.trim()) {
+          el.senderInput.value = user.name || "";
+        }
+        loadMessages(false);
+      } else {
+        state.messages = [];
+      }
+    }
+
+    async function checkSessionOnBoot() {
+      el.demoBanner.classList.toggle("hidden", isNeonConfigured);
+
+      if (!isNeonConfigured) {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEYS.demoUser);
+          setAuthenticatedUser(saved ? JSON.parse(saved) : null);
+        } catch {
+          setAuthenticatedUser(null);
+        }
+        return;
+      }
+
+      try {
+        const client = await getNeonClient();
+        const res = await client.auth.getSession();
+        const user = res?.data?.user || res?.data?.session?.user || null;
+        setAuthenticatedUser(user);
+      } catch (err) {
+        console.error("Session check error:", err);
+        setAuthenticatedUser(null);
+      }
+    }
+
+    el.authForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideAuthError();
+
+      const name = el.authNameInput.value.trim();
+      const email = el.authEmailInput.value.trim();
+      const password = el.authPasswordInput.value;
+
+      if (state.authMode === "signup" && !name) {
+        showAuthError("Please enter your name.");
+        return;
+      }
+      if (!email || !password) {
+        showAuthError("Please enter both email and password.");
+        return;
+      }
+
+      el.authSubmitBtn.disabled = true;
+      try {
+        if (!isNeonConfigured) {
+          // Local Demo Mode account
+          const demoUser = {
+            id: `demo_${email.toLowerCase()}`,
+            name: name || email.split("@")[0],
+            email
+          };
+          localStorage.setItem(STORAGE_KEYS.demoUser, JSON.stringify(demoUser));
+          setAuthenticatedUser(demoUser);
+          showSnackbar(`Signed in as ${demoUser.name} (Demo)`);
+          return;
+        }
+
+        const client = await getNeonClient();
+        let res;
+        if (state.authMode === "signup") {
+          res = await client.auth.signUp.email({ name, email, password });
+        } else {
+          res = await client.auth.signIn.email({ email, password });
+        }
+
+        if (res?.error) {
+          throw new Error(res.error.message || "Authentication failed.");
+        }
+
+        const sessionRes = await client.auth.getSession();
+        const user = res?.data?.user || sessionRes?.data?.user || sessionRes?.data?.session?.user || null;
+
+        if (!user && state.authMode === "signup") {
+          showSnackbar("Account created! Check your email to verify, then sign in.");
+          setAuthMode("signin");
+          return;
+        }
+
+        setAuthenticatedUser(user);
+        showSnackbar(`Welcome, ${user.name || user.email}!`);
+      } catch (err) {
+        console.error(err);
+        showAuthError(err.message || "Unable to sign in. Please check your credentials.");
+      } finally {
+        el.authSubmitBtn.disabled = false;
+      }
+    });
+
+    el.signOutBtn.addEventListener("click", async () => {
+      try {
+        if (!isNeonConfigured) {
+          localStorage.removeItem(STORAGE_KEYS.demoUser);
+        } else {
+          const client = await getNeonClient();
+          await client.auth.signOut();
+        }
+        el.authForm.reset();
+        setAuthenticatedUser(null);
+        showSnackbar("Signed out");
+      } catch (err) {
+        showSnackbar(err.message || "Error signing out");
+      }
+    });
+
+    /* -------------------- Navigation -------------------- */
+    function switchView(viewName) {
+      const isSubmit = viewName === "submit";
+      el.tabSubmit.classList.toggle("active", isSubmit);
+      el.tabSubmit.setAttribute("aria-selected", String(isSubmit));
+      el.tabDashboard.classList.toggle("active", !isSubmit);
+      el.tabDashboard.setAttribute("aria-selected", String(!isSubmit));
+      el.panelSubmit.classList.toggle("hidden", !isSubmit);
+      el.panelDashboard.classList.toggle("hidden", isSubmit);
+      if (!isSubmit) renderDashboard();
+    }
+
+    el.tabSubmit.addEventListener("click", () => switchView("submit"));
+    el.tabDashboard.addEventListener("click", () => switchView("dashboard"));
+
+    /* -------------------- Category Chips -------------------- */
+    el.categoryChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".m3-chip");
+      if (!chip) return;
+      state.selectedCategory = chip.dataset.category;
+      el.categoryChips.querySelectorAll(".m3-chip").forEach((btn) => {
+        const active = btn === chip;
+        btn.classList.toggle("selected", active);
+        btn.setAttribute("aria-checked", String(active));
+      });
+    });
+
+    /* -------------------- Visual Markdown Toolbar -------------------- */
+    function setEditorMode(mode) {
+      state.editorMode = mode;
+      const isPreview = mode === "preview";
+      el.modeWriteBtn.classList.toggle("active", !isPreview);
+      el.modePreviewBtn.classList.toggle("active", isPreview);
+      el.mdToolbar.classList.toggle("hidden", isPreview);
+      el.markdownInput.classList.toggle("hidden", isPreview);
+      el.markdownPreview.classList.toggle("hidden", !isPreview);
+
+      if (isPreview) {
+        el.markdownPreview.innerHTML = renderMarkdownSafe(el.markdownInput.value);
+      } else {
+        el.markdownInput.focus();
+      }
+    }
+
+    el.modeWriteBtn.addEventListener("click", () => setEditorMode("write"));
+    el.modePreviewBtn.addEventListener("click", () => setEditorMode("preview"));
+
+    function wrapSelection(before, after, placeholder) {
+      const ta = el.markdownInput;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const value = ta.value;
+      const selected = value.slice(start, end) || placeholder;
+      ta.value = value.slice(0, start) + `${before}${selected}${after}` + value.slice(end);
+      ta.focus();
+      ta.setSelectionRange(start + before.length, start + before.length + selected.length);
+    }
+
+    function prefixSelectedLines(prefixBuilder, placeholder) {
+      const ta = el.markdownInput;
+      const value = ta.value;
+      const lineStart = value.lastIndexOf("\n", ta.selectionStart - 1) + 1;
+      const nextNewline = value.indexOf("\n", ta.selectionEnd);
+      const lineEnd = nextNewline === -1 ? value.length : nextNewline;
+      const block = value.slice(lineStart, lineEnd);
+      const lines = block ? block.split("\n") : [placeholder];
+      const updated = lines.map((line, idx) => `${prefixBuilder(idx)}${line}`).join("\n");
+      ta.value = value.slice(0, lineStart) + updated + value.slice(lineEnd);
+      ta.focus();
+      ta.setSelectionRange(lineStart, lineStart + updated.length);
+    }
+
+    function insertBlock(snippet) {
+      const ta = el.markdownInput;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const value = ta.value;
+      const prefix = start > 0 && value[start - 1] !== "\n" ? "\n\n" : "";
+      const inserted = `${prefix}${snippet}\n`;
+      ta.value = value.slice(0, start) + inserted + value.slice(end);
+      ta.focus();
+      const pos = start + inserted.length;
+      ta.setSelectionRange(pos, pos);
+    }
+
+    el.mdToolbar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tool-btn");
+      if (!btn) return;
+      switch (btn.dataset.action) {
+        case "heading": prefixSelectedLines(() => "## ", "Section heading"); break;
+        case "bold": wrapSelection("**", "**", "bold text"); break;
+        case "italic": wrapSelection("*", "*", "italic text"); break;
+        case "strike": wrapSelection("~~", "~~", "strikethrough text"); break;
+        case "ul": prefixSelectedLines(() => "- ", "List item"); break;
+        case "ol": prefixSelectedLines((i) => `${i + 1}. `, "List item"); break;
+        case "task": prefixSelectedLines(() => "- [ ] ", "Task item"); break;
+        case "quote": prefixSelectedLines(() => "> ", "Quoted text"); break;
+        case "code": wrapSelection("`", "`", "code"); break;
+        case "codeblock": {
+          const sel = el.markdownInput.value.slice(
+            el.markdownInput.selectionStart,
+            el.markdownInput.selectionEnd
+          ) || "Paste code or details here";
+          insertBlock("```\n" + sel + "\n```");
+          break;
+        }
+        case "hr": insertBlock("---"); break;
+        case "link": {
+          el.linkTextInput.value = el.markdownInput.value.slice(
+            el.markdownInput.selectionStart,
+            el.markdownInput.selectionEnd
+          );
+          el.linkUrlInput.value = "https://";
+          el.linkDialog.showModal();
+          break;
+        }
+      }
+    });
+
+    el.markdownInput.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
+        e.preventDefault();
+        wrapSelection("**", "**", "bold text");
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "i") {
+        e.preventDefault();
+        wrapSelection("*", "*", "italic text");
+      }
+    });
+
+    el.cancelLinkBtn.addEventListener("click", () => el.linkDialog.close());
+    el.linkForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const label = el.linkTextInput.value.trim() || "link";
+      const url = el.linkUrlInput.value.trim();
+      if (!url) return;
+      const ta = el.markdownInput;
+      const start = ta.selectionStart;
+      const end = ta.selectionEnd;
+      const mdLink = `[${label}](${url})`;
+      ta.value = ta.value.slice(0, start) + mdLink + ta.value.slice(end);
+      ta.focus();
+      ta.setSelectionRange(start + mdLink.length, start + mdLink.length);
+      el.linkDialog.close();
+    });
+
+    el.clearFormBtn.addEventListener("click", () => {
+      el.form.reset();
+      if (state.currentUser?.name) el.senderInput.value = state.currentUser.name;
+      setEditorMode("write");
+      el.subjectInput.focus();
+    });
+
+    /* -------------------- Messages Data Layer -------------------- */
+    async function fetchMessagesFromStore() {
+      if (!isNeonConfigured) {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEYS.demoMessages);
+          return raw ? JSON.parse(raw) : [];
+        } catch {
+          return [];
+        }
+      }
+
+      const client = await getNeonClient();
+      const { data, error } = await client
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) throw new Error(error.message || "Failed to load messages");
+      return data || [];
+    }
+
+    async function insertMessageIntoStore(payload) {
+      if (!isNeonConfigured) {
+        const existing = await fetchMessagesFromStore();
+        const nextNum = existing.reduce((max, item) => Math.max(max, item.ticket_number || 0), 0) + 1;
+        const record = {
+          id: `demo_${Date.now()}`,
+          ticket_number: nextNum,
+          user_id: state.currentUser.id,
+          ...payload,
+          created_at: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEYS.demoMessages, JSON.stringify([record, ...existing]));
+        return record;
+      }
+
+      const client = await getNeonClient();
+      const { data, error } = await client
+        .from("messages")
+        .insert([payload])
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message || "Failed to submit message");
+      return Array.isArray(data) ? data[0] : data;
+    }
+
+    async function loadMessages(showToastOnSuccess = false) {
+      try {
+        state.messages = await fetchMessagesFromStore();
+        updateDashboardStats();
+        renderDashboard();
+        if (showToastOnSuccess) showSnackbar("Messages refreshed");
+      } catch (err) {
+        console.error(err);
+        showSnackbar(err.message || "Unable to fetch messages");
+      }
+    }
+
+    /* -------------------- Form Submission -------------------- */
+    el.form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!state.currentUser) return;
+
+      const subject = el.subjectInput.value.trim();
+      const senderName = el.senderInput.value.trim() || state.currentUser.name || null;
+      const contentMd = el.markdownInput.value.trim();
+
+      if (!subject) {
+        showSnackbar("Please enter a message subject.");
+        el.subjectInput.focus();
+        return;
+      }
+      if (!contentMd) {
+        showSnackbar("Please write a message before submitting.");
+        setEditorMode("write");
+        el.markdownInput.focus();
+        return;
+      }
+
+      el.submitBtn.disabled = true;
+      try {
+        const created = await insertMessageIntoStore({
+          user_id: state.currentUser.id,
+          subject,
+          category: state.selectedCategory,
+          sender_name: senderName,
+          content_md: contentMd
+        });
+
+        state.messages = [created, ...state.messages];
+        updateDashboardStats();
+        el.form.reset();
+        if (state.currentUser?.name) el.senderInput.value = state.currentUser.name;
+        setEditorMode("write");
+
+        const ticketLabel = created?.ticket_number
+          ? `#MSG-${String(created.ticket_number).padStart(4, "0")}`
+          : "Message";
+        showSnackbar(`${ticketLabel} submitted!`);
+        switchView("dashboard");
+      } catch (err) {
+        console.error(err);
+        showSnackbar(err.message || "Failed to submit message.");
+      } finally {
+        el.submitBtn.disabled = false;
+      }
+    });
+
+    /* -------------------- Dashboard Filtering & Rendering -------------------- */
+    function formatTicketNumber(num) {
+      return num ? `#MSG-${String(num).padStart(4, "0")}` : "#MSG";
+    }
+
+    function formatTimestamp(iso) {
+      try {
+        return new Intl.DateTimeFormat(undefined, {
+          dateStyle: "medium",
+          timeStyle: "short"
+        }).format(new Date(iso));
+      } catch {
+        return iso;
+      }
+    }
+
+    function updateDashboardStats() {
+      const myId = state.currentUser?.id;
+      const total = state.messages.length;
+      const mine = state.messages.filter((m) => m.user_id === myId).length;
+      const latest = total > 0 ? formatTimestamp(state.messages[0].created_at) : "—";
+
+      el.messageCountBadge.textContent = String(total);
+      el.statTotal.textContent = String(total);
+      el.statMine.textContent = String(mine);
+      el.statLatest.textContent = latest;
+      el.scopeAllCount.textContent = String(total);
+      el.scopeMineCount.textContent = String(mine);
+    }
+
+    function getFilteredMessages() {
+      const q = state.searchQuery.trim().toLowerCase();
+      const myId = state.currentUser?.id;
+
+      return state.messages.filter((msg) => {
+        if (state.scopeFilter === "mine" && msg.user_id !== myId) return false;
+        if (state.filterCategory !== "All" && msg.category !== state.filterCategory) return false;
+        if (!q) return true;
+        return (
+          (msg.subject || "").toLowerCase().includes(q) ||
+          (msg.content_md || "").toLowerCase().includes(q) ||
+          (msg.sender_name || "anonymous").toLowerCase().includes(q) ||
+          formatTicketNumber(msg.ticket_number).toLowerCase().includes(q)
+        );
+      });
+    }
+
+    function renderDashboard() {
+      const items = getFilteredMessages();
+      const myId = state.currentUser?.id;
+
+      if (items.length === 0) {
+        el.messagesList.innerHTML = `
+          <div class="empty-state">
+            <span class="material-symbols-rounded">mark_email_read</span>
+            <h3>No messages found</h3>
+            <p class="body-medium">
+              ${state.messages.length === 0
+                ? "Submit your first message using the New Message tab."
+                : "No messages match your current filter."}
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      el.messagesList.innerHTML = items.map((msg) => {
+        const isMine = msg.user_id === myId;
+        return `
+          <article class="ticket-card">
+            <div class="ticket-meta-top">
+              <div class="ticket-badges">
+                <span class="pill pill-id">${formatTicketNumber(msg.ticket_number)}</span>
+                <span class="pill pill-cat">${escapeHtml(msg.category || "General")}</span>
+                <span class="pill pill-readonly">
+                  <span class="material-symbols-rounded" style="font-size:14px;">lock</span>
+                  Submitted
+                </span>
+                ${isMine ? '<span class="pill pill-mine">Mine</span>' : ""}
+              </div>
+              <span class="ticket-time">${escapeHtml(formatTimestamp(msg.created_at))}</span>
+            </div>
+
+            <h3 class="ticket-subject">${escapeHtml(msg.subject)}</h3>
+            <p class="ticket-author">From: ${escapeHtml(msg.sender_name || "Anonymous")}</p>
+
+            <div class="ticket-body markdown-body">
+              ${renderMarkdownSafe(msg.content_md)}
+            </div>
+
+            <details class="raw-md-details">
+              <summary>View stored Markdown</summary>
+              <pre>${escapeHtml(msg.content_md)}</pre>
+            </details>
+          </article>
+        `;
+      }).join("");
+    }
+
+    // Scope buttons: All Messages vs My Messages
+    el.scopeAllBtn.addEventListener("click", () => {
+      state.scopeFilter = "all";
+      el.scopeAllBtn.classList.add("active");
+      el.scopeMineBtn.classList.remove("active");
+      renderDashboard();
+    });
+
+    el.scopeMineBtn.addEventListener("click", () => {
+      state.scopeFilter = "mine";
+      el.scopeMineBtn.classList.add("active");
+      el.scopeAllBtn.classList.remove("active");
+      renderDashboard();
+    });
+
+    el.searchInput.addEventListener("input", (e) => {
+      state.searchQuery = e.target.value;
+      renderDashboard();
+    });
+
+    el.filterCategoryChips.addEventListener("click", (e) => {
+      const chip = e.target.closest(".m3-chip");
+      if (!chip) return;
+      state.filterCategory = chip.dataset.filterCat;
+      el.filterCategoryChips.querySelectorAll(".m3-chip").forEach((btn) => {
+        btn.classList.toggle("selected", btn === chip);
+      });
+      renderDashboard();
+    });
+
+    el.refreshBtn.addEventListener("click", () => loadMessages(true));
+
+    // Boot
+    checkSessionOnBoot();
+  </script>
+</body>
+</html>
